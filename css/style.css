@@ -1,0 +1,17 @@
+body{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  
+}
+/* .container1{
+    margin: 0;
+    display: grid;
+    grid-template-columns: 3fr 2fr 1fr;
+    grid-template-rows: 1fr;
+} */
+
+.scrollable{
+    height: 90vh;
+    overflow-y: auto;
+}

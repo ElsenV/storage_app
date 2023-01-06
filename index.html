@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+     <link rel="stylesheet" href="./css//bootstrap//bootstrap.min.css"/>
+     <link rel="stylesheet" href="./css//style.css"/>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+  <nav class="navbar navbar-light bg-dark p-0">
+    <a class="navbar-brand text-light">
+      <img src="./img//Storage_Logo.png" width="70px" height="50px" class="mx-3" />
+    </a>
+  </nav>
+   <div class="contain">
+     <div class="row g-0">
+     <div class="col-sm-12 col-md-5">
+        <div >
+            <div class="col-md-8 mx-auto py-2">
+              <h2>Add Product</h2>
+            </div>
+          </div>
+
+        <div class="form-row m-2 ">
+          <div class="form-group col-md-6 my-2 w-100">
+            <label for="product_name">Product Name</label>
+            <input type="text" class="form-control" name="product_name" id="product_name" placeholder="Add Product..." />
+          </div>
+          <div class="form-group col-md-6 my-2 w-100">
+            <label for="product_count">Count</label>
+            <input type="text" class="form-control"  name="product_count" id="product_count" placeholder="Add Product Count..." />
+           
+          </div>
+          <div class="form-group col-md-6 my-2 w-100">
+            <label for="product_exire_date_input">Product Expired Date</label>
+            <input type="date" class="form-control" id="product_exire_date_input" />
+          </div>
+          <button  id="addBtn" class="btn btn-secondary m-2 ">Add to Storage</button>
+          <button  id="saveBtn" class="btn btn-success mx-2 my-3" style="display: none;">Save</button>
+        </div>
+        
+
+        
+    
+
+        <div > 
+            <div class="col-md-8 mx-auto">
+              <h2>Search Product</h2>
+            </div>
+          </div>
+        <div class="form-row m-2">
+      
+         <div class="form-group col-md-6 my-2 w-100">
+            <label for="search_product">Search For Product Name</label>
+            <input type="text" class="form-control" id="search_product" placeholder="Product Name..." />
+          </div>
+          <div class="form-group col-md-6 my-2 w-100">
+            <label for="search_for_date">Search For Date</label>
+            <input name="search_for_date" type="date" class="form-control" id="search_for_date" />
+          </div>
+          <button type="button" id="searchBtn" class="btn btn-secondary m-2">Search Product</button>
+        </div>
+     </div>
+
+     <div id="search_table" class="col-md-5 col-sm-9 ">
+      <table class="table table-striped">
+        <thead>
+          <tr class="p-5 h5">
+           <th>Product Name</th>
+           <th>Product Count</th>
+           <th>Product Expire Date</th>
+         
+          </tr>
+         </thead>
+         <tbody id="bodytable">
+      
+         </tbody>
+       </table>
+       <div class="d-flex justify-content-end ">
+        <button style="visibility: hidden"  id="clearAllTable" class="btn btn-primary m-2 ">Clear Table</button>
+      </div>
+       
+     </div>
+     <div id="alertDiv" class="py-4 px-2 col-md-2 col-sm-3"></div>
+    </div>
+  </div>
+    
+    <script src="./js//app.js"></script>
+</body>
+</html>
