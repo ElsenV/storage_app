@@ -98,11 +98,15 @@ function find_Data() {
     .toLowerCase();
 
   const newsearchForExpireDateInput = searchForExpireDateInput.value;
+  try {
+    if (!newsearchForProductInput && !newsearchForExpireDateInput)
+      throw show_Alert("Add product name or expire date", "danger");
+  } catch (error) {
+    show_Alert(`${error.message}`, "danger");
+  }
   const toDate = new Date(newsearchForExpireDateInput);
   toDate.setHours(0, 0, 0, 0);
 
-  // const findedDataDiv = document.createElement("div");
-  // searchTable.appendChild(findedDataDiv);
   const Product = JSON.parse(localStorage.getItem("Products")) || [];
 
   Product.filter((product) => {
@@ -111,9 +115,7 @@ function find_Data() {
     fromDate.setHours(0, 0, 0, 0);
     //
 
-    if (
-      product.Product_Name.trim().toLowerCase() === newsearchForProductInput
-    ) {
+    if (product.Product_Name === newsearchForProductInput) {
       check_Table(product);
       // body_Table(product);
     } else if (fromDate <= toDate) {
@@ -162,8 +164,8 @@ function check_Table(product) {
     if (findedProduct) {
       return tableProducts;
     } else {
+      tableProducts.push(product);
     }
-    tableProducts.push(product);
   }
   body_Table(tableProducts);
 }
@@ -192,7 +194,6 @@ function body_Table(tableProducts) {
   });
 
   if (window.innerHeight > 100) {
-    console.log("scroolled");
     bodyTable.parentElement.parentElement.classList.add("scrollable");
   }
 }
@@ -233,6 +234,15 @@ function add_Edited_Product(id, allEditButtons) {
     id: id,
   };
 
+  tableProducts.map((product) => {
+    product.id === id
+      ? ((product.Product_Name = editedProduct.Product_Name),
+        (product.Count = editedProduct.Count),
+        (product.Expire_Date = editedProduct.Expire_Date),
+        (product.id = editedProduct.id))
+      : product;
+  });
+
   const Products = JSON.parse(localStorage.getItem("Products"));
   Products.map((product) => {
     product.id === id
@@ -244,7 +254,7 @@ function add_Edited_Product(id, allEditButtons) {
   });
   localStorage.setItem("Products", JSON.stringify(Products));
 
-  body_Table(Products);
+  body_Table(tableProducts);
   addBtn.style.display = "block";
   saveBtn.style.display = "none";
   for (const btn of allEditButtons) {
@@ -273,9 +283,10 @@ function clear_Table() {
 function remove_Table_Item(id) {
   const btn = window.event.target;
   btn.parentElement.parentElement.remove();
+  let findindex = tableProducts.findIndex((product) => product.id === id);
+  tableProducts.splice(findindex, 1);
 
   let Product = JSON.parse(localStorage.getItem("Products"));
-
   Product = Product.filter((product) => product.id !== id);
   localStorage.setItem("Products", JSON.stringify(Product));
   bodyTable.firstElementChild
