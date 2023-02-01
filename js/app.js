@@ -12,6 +12,7 @@ const productCountInput = document.getElementById("product_count");
 //SEARCH INPUTS DATA
 const searchForProductInput = document.getElementById("search_product");
 const searchForExpireDateInput = document.getElementById("search_for_date");
+const getAllProductsBtn = document.getElementById("getAllProducts");
 
 const searchTable = document.getElementById("search_table");
 const bodyTable = document.getElementById("bodytable");
@@ -26,7 +27,7 @@ function event_Listener() {
   searchBtn.addEventListener("click", find_Data);
   clearAllTable.addEventListener("click", clear_Table);
 
-  searchForProductInput.addEventListener("keyup", filter_Search);
+  getAllProductsBtn.addEventListener("click", get_all_products);
 }
 
 //! CHECK INPUTS FOR ERRORS
@@ -123,10 +124,6 @@ function find_Data() {
       // body_Table(product);
     }
   });
-  bodyTable.firstElementChild
-    ? (clearAllTable.style.visibility = "visible")
-    : (clearAllTable.style.visibility = "hidden");
-
   clear_Inputs();
 }
 
@@ -186,7 +183,7 @@ function body_Table(tableProducts) {
        </td>
 
        <td> <button type="button" 
-       onclick=remove_Table_Item(${product.id}) class="btn btn-danger m-1 ">Delete</button>
+       onclick=remove_Table_Item(${product.id}) class="btn btn-danger m-2 ">Delete</button>
        </td>
       </tr>
       
@@ -196,6 +193,9 @@ function body_Table(tableProducts) {
   if (window.innerHeight > 100) {
     bodyTable.parentElement.parentElement.classList.add("scrollable");
   }
+  bodyTable.firstElementChild
+    ? (clearAllTable.style.visibility = "visible")
+    : (clearAllTable.style.visibility = "hidden");
 }
 
 //!EDIT PRODUCT
@@ -303,5 +303,17 @@ function clear_Inputs() {
   if (searchForProductInput || searchForExpireDateInput) {
     searchForProductInput.value = "";
     searchForExpireDateInput.value = "";
+  }
+}
+
+//! GET ALL PRODUCTS
+function get_all_products() {
+  const Products = JSON.parse(localStorage.getItem("Products"));
+  if (Products === null) {
+    show_Alert("Thene is not Product in storage", "danger");
+  } else {
+    Products.map((product) => {
+      check_Table(product);
+    });
   }
 }
